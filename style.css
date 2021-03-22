@@ -22,7 +22,6 @@
 }
 
 .goods-list {
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
     max-width: 970px;
@@ -30,6 +29,30 @@
 }
 
 .goods-item {
-    border: 1px solid red;
+    border: 1px solid #cfc9c9a6;
     width: 24%;
+    display: flex;
+    flex-direction: column;
 }
+.goods-item h3,
+.goods-item p, 
+.goods-item button {
+    margin: 10px;
+}
+
+
+img {
+    width: 100%;
+}
+
+.buy-button {
+    align-self: center;
+    width: 50%;
+    background-color: #198754;
+    color: #fff;
+}
+.buy-button:hover {
+    color: #198754;
+    background-color: #fff;
+}
+
