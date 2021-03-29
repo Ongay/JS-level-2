@@ -1,0 +1,33 @@
+<script>
+
+    // Замена всех одинарных кавычек на двойные.
+    let regexp = /'/gm;
+    let text = `He said 'my name is Thanos motherfucker'.`;
+
+    let text2 = text.replace(regexp, "\"");
+
+
+    // Замена всех одинарных кавычек на двойные, кроме случайев, типа you're, I'm или ain't
+    let regexp = /'/gm;
+    let regexp2 = /[a-z]'[a-z]/gmi;
+    let text = `He said 'my name is Thanos ain't else motherfucker'.`;
+
+    let newText = [];
+    let c = text.split(' ');
+    c.forEach(item => {
+        if (regexp.test(item)) {
+            if (regexp2.test(item)) {
+                newText.push(item);
+            }
+            else {
+                let x = item.replace(regexp, "\"");
+                newText.push(x);
+            }
+        } else {
+            newText.push(item);
+        }
+    });
+
+    console.log(newText);
+
+</script>
