@@ -1,20 +1,137 @@
-const goods = [
-    { title: 'Shirt', price: 150 },
-    { title: 'Socks', price: 50 },
-    { title: 'Jacket', price: 350 },
-    { title: 'Shoes', price: 250 },
+const products = [
+    { id: 1, title: 'Shirt', price: 150 },
+    { id: 2, title: 'Socks', price: 50 },
+    { id: 3, title: 'Jacket', price: 350 },
+    { id: 4, title: 'Shoes', price: 250 },
 ];
 
-const renderGoodsItem = (title = 'Item', price = 100) => {
-    return `<div class="goods-item"><h3>${title}</h3><p>${price}</p></div>`;
-};
+let header = new Vue({
+    el: '#header',
+    data() {
+        return {
+            searchResult: '',
+        }
+    },
+    computed: {
+        searchHandler() {
+            return products.filter(item => {
+                return item.title.toLowerCase().includes(this.searchResult);
+            });
+        }
+    },
+})
 
-const renderGoodsList = (list) => {
-    let goodsList = list.map(item => renderGoodsItem(item.title, item.price));
-    document.querySelector('.goods-list').innerHTML = goodsList.join('');   // Метод array.map возвращает массив, а innerHTML выводит строку, поэтому запятые между элементами, чтобы его убрать Я добавил свойсто join(''), чтобы преобразовать в массив в строку и без знаков между элементами
-}
+let goodsList = new Vue({
+    el: '.goods-list',
+    // data() {
+    //     return {
+    //         goods: [],
+    //     };
+    // },
 
-renderGoodsList(goods);
+    // created() {
+    //     this.goods = header.searchHandler;
+    // },
+
+    computed: {
+        render() {
+            return header.searchHandler;
+        }
+    }
+});
 
 
 
+
+
+
+
+
+
+
+
+// class ProductList {
+//     constructor(container = '.goods-list') {
+//         this.container = container;
+//         this.goods = [];
+//         this.fetchProducts();
+//     }
+//     fetchProducts() {
+//         this.goods = [
+//             { title: 'Shirt', price: 150 },
+//             { title: 'Socks', price: 50 },
+//             { title: 'Jacket', price: 350 },
+//             { title: 'Shoes', price: 250 },
+//         ];
+//     }
+//     render() {
+//         const block = document.querySelector(this.container);
+//         this.goods.forEach(product => {
+//             const productObj = new ProductItem(product);
+//             block.insertAdjacentHTML('beforeend', productObj.render());
+//         });
+//     }
+//     totalSum() {
+//         // let sum = 0;
+//         // this.goods.forEach(product => {
+//         //     sum += product.price;
+//         // })
+//         // return sum;
+//         let res = this.goods.reduce((sum, item) => sum += item.price, 0);
+//         window.onload = () => alert(res);
+//     }
+// }
+
+// class ProductItem {
+//     constructor(product, img = "https://placehold.it/200x150") {
+//         this.title = product.title;
+//         this.price = product.price;
+//         this.img = img;
+//     }
+//     render() {
+//         return `<div class="goods-item">
+//                     <img src="${this.img}" width="200" height="150" alt="image">
+//                     <h3>${this.title}</h3>
+//                     <p>${this.price}</p>
+//                     <button class="buy-button cart-button">Купить</button>
+//                 </div>`;
+//     }
+// }
+// let list = new ProductList();
+// list.render();
+// console.log(list.totalSum());
+
+
+
+
+
+
+
+// // ДЗ первое по классам корзины
+// class Basket {
+//     constructor() {
+//         this.container;
+//         this.items = [];
+//     }
+//     addItem() {
+
+//     }
+//     removeItem() {
+
+//     }
+//     changeItemQuantity() {
+
+//     }
+//     render() {
+
+//     }
+// }
+
+// class BasketItem {
+//     constructor() {
+
+//     }
+//     render() {
+
+//     }
+// }
