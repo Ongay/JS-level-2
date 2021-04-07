@@ -1,20 +1,58 @@
-const goods = [
-    { title: 'Shirt', price: 150 },
-    { title: 'Socks', price: 50 },
-    { title: 'Jacket', price: 350 },
-    { title: 'Shoes', price: 250 },
+const products = [
+    { id: 1, title: 'Shirt', price: 150, imgSrc: 'https://via.placeholder.com/200x150' },
+    { id: 2, title: 'Socks', price: 50, imgSrc: 'https://via.placeholder.com/200x150' },
+    { id: 3, title: 'Jacket', price: 350, imgSrc: 'https://via.placeholder.com/200x150' },
+    { id: 4, title: 'Shoes', price: 250, imgSrc: 'https://via.placeholder.com/200x150' },
 ];
 
-const renderGoodsItem = (title = 'Item', price = 100) => {
-    return `<div class="goods-item"><h3>${title}</h3><p>${price}</p></div>`;
-};
+const app = new Vue({
+    el: '#app',
 
-const renderGoodsList = (list) => {
-    let goodsList = list.map(item => renderGoodsItem(item.title, item.price));
-    document.querySelector('.goods-list').innerHTML = goodsList.join('');   // Метод array.map возвращает массив, а innerHTML выводит строку, поэтому запятые между элементами, чтобы его убрать Я добавил свойсто join(''), чтобы преобразовать в массив в строку и без знаков между элементами
-}
+    data() {
+        return {
+            goods: [...products],
+            userSearch: '',
+            userSearchResult: '',
+            cartItems: [],
+            visibility: false
+        }
+    },
 
-renderGoodsList(goods);
+    computed: {
+        fetchGoods() {
+            return this.goods.filter(item => {
+                return item.title.toLowerCase().includes(this.userSearchResult);
+            })
+        }
+    },
 
+    methods: {
+        searchResult() {
+            this.userSearchResult = this.userSearch;
+        },
 
+        cartVisibility() {
+            this.visibility = !this.visibility;
+        },
 
+        addProduct(item) {
+            let find = this.cartItems.find(el => el.id === item.id);
+            if (find) {
+                find.quantity++;
+            } else {
+                const prod = Object.assign({ quantity: 1 }, item);
+                this.cartItems.push(prod)
+            }
+        },
+
+        deleteItem(item) {
+            if (item.quantity > 1) {
+                item.quantity--;
+            }
+            else {
+                this.cartItems.splice(this.cartItems.indexOf(item), 1);
+            }
+        }
+    }
+
+})
