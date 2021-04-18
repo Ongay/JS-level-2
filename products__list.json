@@ -1,4 +1,4 @@
-[
+"{
     {
         "id": 1,
         "title": "Shirt",
@@ -23,4 +23,4 @@
         "price": 250,
         "imgSrc": "https://via.placeholder.com/200x150"
     }
-]
+}"
